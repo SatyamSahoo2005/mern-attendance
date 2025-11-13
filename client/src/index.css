@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Smooth Dark UI Base */
+body {
+  background: radial-gradient(circle at top, #111827, #0f172a 40%, #020617 100%);
+  color: #e2e8f0;
+}
+
+/* Glass Panel Utility */
+.glass-panel {
+  background: rgba(20, 27, 45, 0.55);
+  border: 1px solid rgba(88, 98, 128, 0.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 14px;
+}
+
+/* Hover glowing soft edges */
+.glass-hover:hover {
+  background: rgba(40, 48, 75, 0.55);
+  border-color: rgba(120, 130, 165, 0.55);
+  transition: 0.25s;
+}
+
+/* Input / Select Style */
+input, select, textarea {
+  background: rgba(30, 38, 56, 0.5);
+  border: 1px solid rgba(100, 110, 140, 0.4);
+  color: #e5e7eb;
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+}
+input:focus, select:focus {
+  border-color: #6366f1;
+  outline: none;
+}
+/* Fix Select Dropdown (Dark Theme Fully Consistent) */
+select {
+    background: rgba(30, 38, 56, 0.65) !important;
+    border: 1px solid rgba(100, 110, 140, 0.45) !important;
+    color: #e5e7eb !important;
+    border-radius: 8px;
+    padding: 0.6rem 0.75rem;
+    appearance: none; /* Removes ugly default arrow */
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='14' viewBox='0 0 20 20' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548c.436-.446 1.14-.446 1.575 0L10 10.428l2.909-2.88c.435-.446 1.14-.446 1.575 0 .436.445.436 1.166 0 1.611l-3.697 3.659c-.436.445-1.14.445-1.575 0L5.516 9.159c-.436-.446-.436-1.166 0-1.611z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+}
+  
+select:focus {
+    border-color: #6366f1 !important;
+    outline: none;
+}
+  
+select option {
+    background: #0f172a !important;
+    color: #e5e7eb !important;
+}
+  
+/* Table Glass Style */
+table {
+  border-radius: 14px;
+  overflow: hidden;
+}
+thead {
+  background: rgba(50, 60, 90, 0.4);
+}
+tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Glow Accent Buttons */
+.btn-glow {
+    background: linear-gradient(90deg, #4f46e5, #6366f1);
+    color: white;
+    border-radius: 8px;
+    padding: 0.6rem 1.1rem;
+    font-weight: 500;
+    transition: 0.25s ease;
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.35);
+}
+.btn-glow:hover {
+    box-shadow: 0 0 25px rgba(99, 102, 241, 0.75);
+    transform: translateY(-1px);
+}
+  
+/* Danger Glow Button */
+.btn-danger {
+    background: #dc2626;
+    color: white;
+    padding: 0.6rem 1.1rem;
+    border-radius: 8px;
+    transition: 0.25s ease;
+    box-shadow: 0 0 12px rgba(220, 38, 38, 0.35);
+}
+.btn-danger:hover {
+    box-shadow: 0 0 25px rgba(220, 38, 38, 0.7);
+    transform: translateY(-1px);
+}
+  
