@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://mern-attendance-server.onrender.com/api";
 
 // Save token consistently
 export function setAuthToken(token) {
