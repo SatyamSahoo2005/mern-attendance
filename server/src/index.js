@@ -32,7 +32,7 @@ const startServer = async () => {
   console.log("⏳ Connecting to DB...");
   await connectDB();
   console.log("✅ DB connected, starting server...");
-  app.listen(process.env.PORT || 5000, () => {
+  app.listen(process.env.PORT || 5000, "0.0.0.0", () => {
     console.log("🚀 Server running at http://localhost:" + (process.env.PORT || 5000));
   });
 };
