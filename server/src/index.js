@@ -12,7 +12,11 @@ import { requireAuth } from "./middleware/auth.js";
 console.log("➡️ Starting server...");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:5173", "https://mern-attendance-seven.vercel.app"],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // AUTH (Login/Register)

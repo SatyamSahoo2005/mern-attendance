@@ -148,19 +148,16 @@ export async function bulkImportStudents(classId, students) {
 }
 
 export async function importStudents(classId, students) {
-  const token = localStorage.getItem("authToken");
-  const res = await fetch(`http://localhost:5000/api/students/import`, {
+  const res = await fetch(`${API_BASE}/students/import`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
+    headers: authHeaders(),
     body: JSON.stringify({ classId, students }),
   });
-  // If unauthorized, this will be !ok
+
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error(err.error || `Import failed with status ${res.status}`);
+    throw new Error(err.error || `Import failed: ${res.status}`);
   }
+
   return res.json();
 }
