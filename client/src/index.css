@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* DESKTOP LAYOUT */
 @media (min-width: 769px) {
 
@@ -9,6 +11,7 @@
     display: flex;
     flex-direction: row;
     height: 100vh;
+    width: 100%;
   }
 
   .layout-sidebar {
@@ -36,6 +39,7 @@
     padding: 0.6rem 1rem;
     border-radius: 8px;
     background: rgba(255,255,255,0.03);
+    margin-bottom: 0.5rem;
   }
 
   .side-nav-link:hover {
@@ -50,6 +54,7 @@
   .layout-wrapper {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   .layout-mobile-header {
@@ -73,6 +78,7 @@
     margin-left: 1rem;
     font-size: 1.1rem;
     font-weight: 600;
+    color: white;
   }
 
   .desktop-only {
@@ -88,7 +94,7 @@
     border-bottom: 1px solid #1e293b;
     padding: 1rem;
     transform: translateY(-200%);
-    transition: 0.3s ease;
+    transition: 0.3s ease-in-out;
     z-index: 50;
   }
 
@@ -101,6 +107,7 @@
     padding: 0.7rem 1rem;
     border-radius: 6px;
     background: rgba(255,255,255,0.03);
+    margin-bottom: 0.5rem;
   }
 
   .layout-main {
