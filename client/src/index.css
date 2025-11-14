@@ -1,166 +1,58 @@
-@import "tailwindcss";
-
-html, body, #root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-/* Smooth Dark UI Base */
-body {
-  background: radial-gradient(circle at top, #111827, #0f172a 40%, #020617 100%);
-  color: #e2e8f0;
-}
-
-/* Glass Panel Utility */
-.glass-panel {
-  background: rgba(20, 27, 45, 0.55);
-  border: 1px solid rgba(88, 98, 128, 0.35);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-radius: 14px;
-}
-
-/* Hover glowing soft edges */
-.glass-hover:hover {
-  background: rgba(40, 48, 75, 0.55);
-  border-color: rgba(120, 130, 165, 0.55);
-  transition: 0.25s;
-}
-
-/* Input / Select Style */
-input, select, textarea {
-  background: rgba(30, 38, 56, 0.5);
-  border: 1px solid rgba(100, 110, 140, 0.4);
-  color: #e5e7eb;
-  border-radius: 8px;
-  padding: 0.6rem 0.75rem;
-}
-input:focus, select:focus {
-  border-color: #6366f1;
-  outline: none;
-}
-/* Fix Select Dropdown (Dark Theme Fully Consistent) */
-select {
-    background: rgba(30, 38, 56, 0.65) !important;
-    border: 1px solid rgba(100, 110, 140, 0.45) !important;
-    color: #e5e7eb !important;
-    border-radius: 8px;
-    padding: 0.6rem 0.75rem;
-    appearance: none; /* Removes ugly default arrow */
-    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='14' viewBox='0 0 20 20' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548c.436-.446 1.14-.446 1.575 0L10 10.428l2.909-2.88c.435-.446 1.14-.446 1.575 0 .436.445.436 1.166 0 1.611l-3.697 3.659c-.436.445-1.14.445-1.575 0L5.516 9.159c-.436-.446-.436-1.166 0-1.611z'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 0.75rem center;
-    background-size: 1rem;
-}
-  
-select:focus {
-    border-color: #6366f1 !important;
-    outline: none;
-}
-  
-select option {
-    background: #0f172a !important;
-    color: #e5e7eb !important;
-}
-  
-/* Table Glass Style */
-table {
-  border-radius: 14px;
-  overflow: hidden;
-}
-thead {
-  background: rgba(50, 60, 90, 0.4);
-}
-tbody tr:hover {
-  background: rgba(255, 255, 255, 0.04);
-}
-
-/* Glow Accent Buttons */
-.btn-glow {
-    background: linear-gradient(90deg, #4f46e5, #6366f1);
-    color: white;
-    border-radius: 8px;
-    padding: 0.6rem 1.1rem;
-    font-weight: 500;
-    transition: 0.25s ease;
-    box-shadow: 0 0 12px rgba(99, 102, 241, 0.35);
-}
-.btn-glow:hover {
-    box-shadow: 0 0 25px rgba(99, 102, 241, 0.75);
-    transform: translateY(-1px);
-}
-  
-/* Danger Glow Button */
-.btn-danger {
-    background: #dc2626;
-    color: white;
-    padding: 0.6rem 1.1rem;
-    border-radius: 8px;
-    transition: 0.25s ease;
-    box-shadow: 0 0 12px rgba(220, 38, 38, 0.35);
-}
-.btn-danger:hover {
-    box-shadow: 0 0 25px rgba(220, 38, 38, 0.7);
-    transform: translateY(-1px);
-}
-
-/* DESKTOP / LARGE SCREEN FIXES */
+/* DESKTOP LAYOUT */
 @media (min-width: 769px) {
 
-  /* Hide mobile header on desktop */
-  .mobile-header {
+  .layout-mobile-header {
     display: none !important;
   }
 
-  /* Sidebar becomes fixed left column again */
-  .sidebar {
-    position: relative !important;
-    width: 260px !important;
-    height: 100vh !important;
-    transform: none !important;
-    border-right: 1px solid #1e293b;
-    padding: 1.5rem !important;
-  }
-
-  /* Show desktop title in sidebar */
-  .hidden-mobile {
-    display: block !important;
-  }
-
-  /* Desktop Layout */
-  .app-container {
+  .layout-wrapper {
     display: flex;
     flex-direction: row;
     height: 100vh;
   }
 
-  /* Main content normal padding */
-  .main-content {
-    margin-top: 0 !important;
-    padding: 2rem !important;
+  .layout-sidebar {
+    position: relative !important;
+    width: 260px !important;
+    height: 100vh;
+    transform: none !important;
+    background: #0f172a;
+    padding: 1.5rem !important;
+    border-right: 1px solid #1e293b;
+  }
+
+  .desktop-only {
+    display: block !important;
+  }
+
+  .layout-main {
     flex: 1;
+    padding: 2rem !important;
     overflow-y: auto;
   }
 
-  .nav-link {
+  .side-nav-link {
+    display: block;
     padding: 0.6rem 1rem;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .side-nav-link:hover {
+    background: rgba(255,255,255,0.08);
   }
 }
 
-/* MOBILE RESPONSIVE STYLES       */
 
+/* MOBILE RESPONSIVE */
 @media (max-width: 768px) {
 
-  /* PAGE LAYOUT */
-  .app-container {
+  .layout-wrapper {
     display: flex;
     flex-direction: column;
-    height: 100vh;
   }
 
-  /* MOBILE HEADER */
-  .mobile-header {
+  .layout-mobile-header {
     display: flex;
     align-items: center;
     padding: 0.8rem 1rem;
@@ -168,7 +60,7 @@ tbody tr:hover {
     border-bottom: 1px solid #1e293b;
   }
 
-  .mobile-menu-btn {
+  .layout-mobile-btn {
     background: #1e293b;
     border: 1px solid #334155;
     padding: 0.4rem 0.7rem;
@@ -177,22 +69,18 @@ tbody tr:hover {
     font-size: 1.2rem;
   }
 
-  .mobile-title {
-    color: #f1f5f9;
-    font-size: 1.1rem;
+  .layout-mobile-title {
     margin-left: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
   }
 
-  /* HIDE DESKTOP TITLE */
-  .hidden-mobile {
+  .desktop-only {
     display: none;
   }
 
-  /* SIDEBAR MOBILE */
-  .sidebar {
+  .layout-sidebar {
     width: 100%;
-    height: auto;
     position: absolute;
     top: 56px;
     left: 0;
@@ -204,49 +92,19 @@ tbody tr:hover {
     z-index: 50;
   }
 
-  .sidebar.open {
+  .layout-sidebar.open {
     transform: translateY(0%);
   }
 
-  .nav-link {
+  .side-nav-link {
     display: block;
     padding: 0.7rem 1rem;
     border-radius: 6px;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255,255,255,0.03);
   }
 
-  /* FOOTER */
-  .sidebar-footer {
-    margin-top: 1rem;
-  }
-
-  /* MAIN CONTENT */
-  .main-content {
+  .layout-main {
     padding: 1rem;
     margin-top: 56px;
-  }
-
-  /* LOGIN PAGE */
-  .login-container {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-  }
-
-  .login-box {
-    width: 100%;
-    max-width: 350px;
-  }
-
-  .form-input {
-    width: 100%;
-    padding: 0.7rem;
-    background: rgba(30, 38, 56, 0.55);
-    border: 1px solid rgba(100, 110, 140, 0.4);
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    color: white;
   }
 }

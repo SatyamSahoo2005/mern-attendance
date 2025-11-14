@@ -39,7 +39,6 @@ export default function AttendancePage() {
     setSession(await getSessionDetails(session._id));
   }
 
-  // ----- SUMMARY COUNTS -----
   function summary() {
     if (!session?.marks) return null;
     const total = session.marks.length;
@@ -53,14 +52,14 @@ export default function AttendancePage() {
   const stats = summary();
 
   return (
-    <div className="sm:p-6 p-3">
+    <div className="p-4 sm:p-6">
       <h1 className="text-3xl font-bold mb-6">Attendance</h1>
 
-      {/* Filters */}
-      <div className="flex flex-wrap gap-3 mb-6">
+      {/* FILTER BAR */}
+      <div className="flex flex-wrap sm:flex-row flex-col gap-3 mb-6">
 
         <select
-          className="px-3 py-2 rounded bg-slate-900 border border-slate-800 w-full sm:w-auto"
+          className="px-3 py-2 rounded bg-slate-900 border border-slate-800 sm:w-auto w-full"
           value={classId}
           onChange={(e) => setClassId(e.target.value)}
         >
@@ -72,40 +71,42 @@ export default function AttendancePage() {
 
         <input
           type="date"
-          className="px-3 py-2 rounded bg-slate-900 border border-slate-800 w-full sm:w-auto"
+          className="px-3 py-2 rounded bg-slate-900 border border-slate-800 sm:w-auto w-full"
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
 
-        <button className="btn-glow w-full sm:w-auto" onClick={loadSession}>
+        <button className="btn-glow sm:w-auto w-full" onClick={loadSession}>
           Load Attendance
         </button>
       </div>
 
-      {/* Summary */}
+      {/* SUMMARY BAR */}
       {stats && (
-        <div
-          className="
+        <div className="
             glass-panel rounded-lg p-4 mb-6 border border-slate-800 
             grid grid-cols-3 sm:flex sm:gap-6 text-center
-          "
-        >
+        ">
           <div>
             <p className="text-lg font-semibold">{stats.total}</p>
             <p className="text-sm text-gray-400">Total</p>
           </div>
+
           <div>
             <p className="text-lg font-semibold text-green-400">{stats.present}</p>
             <p className="text-sm text-gray-400">Present</p>
           </div>
+
           <div>
             <p className="text-lg font-semibold text-yellow-300">{stats.late}</p>
             <p className="text-sm text-gray-400">Late</p>
           </div>
+
           <div className="hidden sm:block">
             <p className="text-lg font-semibold text-red-400">{stats.absent}</p>
             <p className="text-sm text-gray-400">Absent</p>
           </div>
+
           <div>
             <p className="text-lg font-semibold text-blue-400">{stats.percent}%</p>
             <p className="text-sm text-gray-400">Attendance %</p>
@@ -119,10 +120,9 @@ export default function AttendancePage() {
         </div>
       )}
 
-      {/* Table */}
+      {/* TABLE */}
       {session && session.marks && (
         <div className="glass-panel rounded-xl overflow-x-auto border border-slate-800 shadow">
-
           <table className="min-w-full text-sm">
             <thead className="bg-slate-900/60">
               <tr>
@@ -160,7 +160,6 @@ function EditableRow({ mark, onToggle, onSave, onDelete }) {
 
   return (
     <tr className="border-t border-slate-800">
-
       <td className="p-3">
         {editing ? (
           <input
@@ -215,7 +214,6 @@ function EditableRow({ mark, onToggle, onSave, onDelete }) {
           Delete
         </button>
       </td>
-
     </tr>
   );
 }

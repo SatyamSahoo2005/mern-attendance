@@ -15,7 +15,11 @@ export default function ProfilePage() {
   }, []);
 
   async function saveChanges() {
-    await updateProfile({ name, password: password || undefined });
+    await updateProfile({
+      name,
+      password: password || undefined,
+    });
+
     setMsg("Profile updated successfully!");
 
     if (name)
@@ -27,32 +31,56 @@ export default function ProfilePage() {
   return (
     <div
       className="
-        max-w-md mx-auto 
-        glass-panel 
-        rounded-xl shadow-lg 
-
-        /* Mobile responsive changes */
-        p-4 sm:p-6
+        glass-panel
+        rounded-xl
+        shadow-lg
+        max-w-md
+        mx-auto
         w-full
+
+        /* spacing */
+        p-4 sm:p-6
       "
     >
       <h1 className="text-2xl font-bold mb-6 text-center sm:text-left">
         Profile
       </h1>
 
-      {msg && <p className="text-green-400 mb-3 text-sm">{msg}</p>}
+      {msg && (
+        <p className="text-green-400 mb-3 text-sm text-center sm:text-left">
+          {msg}
+        </p>
+      )}
 
-      <label className="text-sm">Name</label>
+      {/* NAME */}
+      <label className="text-sm block mb-1">Name</label>
       <input
-        className="w-full bg-slate-900 border border-slate-800 rounded px-3 py-2 mb-4"
+        className="
+          w-full
+          bg-slate-900
+          border border-slate-800
+          rounded
+          px-3 py-2 
+          mb-4
+        "
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
 
-      <label className="text-sm">New Password (optional)</label>
+      {/* PASSWORD */}
+      <label className="text-sm block mb-1">
+        New Password (optional)
+      </label>
       <input
         type="password"
-        className="w-full bg-slate-900 border border-slate-800 rounded px-3 py-2 mb-4"
+        className="
+          w-full
+          bg-slate-900
+          border border-slate-800
+          rounded
+          px-3 py-2 
+          mb-4
+        "
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />

@@ -17,22 +17,21 @@ export default function ClassesPage() {
   }
 
   return (
-    <div
-      className="
-        sm:p-6 
-        p-4      /* Mobile padding */
-      "
-    >
+    <div className="p-4 sm:p-6">
+
+      {/* PAGE TITLE */}
       <h1 className="text-3xl font-bold mb-6">Classes</h1>
 
-      {/* Grid responsive layout */}
-      <div className="
-        grid 
-        grid-cols-1 
-        sm:grid-cols-2 
-        lg:grid-cols-3 
-        gap-6
-      ">
+      {/* GRID OF CLASS CARDS */}
+      <div
+        className="
+          grid 
+          grid-cols-1 
+          sm:grid-cols-2 
+          lg:grid-cols-3 
+          gap-6
+        "
+      >
         {classes.map((cls) => (
           <div
             key={cls._id}
@@ -42,16 +41,20 @@ export default function ClassesPage() {
               shadow-sm 
               hover:shadow 
               transition
-
-              /* Mobile padding fix */
-              sm:p-6 
-              p-4
+              p-4 sm:p-6
             "
           >
-            <p className="text-xl font-semibold text-blue-400">{cls.name}</p>
-            <p className="text-gray-400 text-sm mt-1">Year: {cls.year ?? "-"}</p>
+            <p className="text-xl font-semibold text-blue-400">
+              {cls.name}
+            </p>
 
+            <p className="text-gray-400 text-sm mt-1">
+              Year: {cls.year ?? "-"}
+            </p>
+
+            {/* BUTTON ROW */}
             <div className="flex justify-between mt-5 gap-3">
+
               <button
                 className="btn-glow flex-1 text-center"
                 onClick={() =>
@@ -65,13 +68,15 @@ export default function ClassesPage() {
                 className="btn-danger flex-1 text-center"
                 onClick={() => openImportModal(cls)}
               >
-                Import Students
+                Import
               </button>
+
             </div>
           </div>
         ))}
       </div>
 
+      {/* MODAL */}
       {importClass && (
         <BulkImportModal
           classObj={importClass}

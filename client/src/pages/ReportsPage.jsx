@@ -6,15 +6,22 @@ export default function ReportsPage() {
   const [classId, setClassId] = useState("");
   const [report, setReport] = useState([]);
 
-  useEffect(() => { getClasses().then(setClasses); }, []);
+  useEffect(() => {
+    getClasses().then(setClasses);
+  }, []);
+
+  async function loadReport() {
+    if (!classId) return;
+    const data = await getReport(classId);
+    setReport(data);
+  }
 
   return (
     <div className="sm:p-6 p-4">
-      <h1 className="font-bold mb-6 sm:text-3xl text-2xl">
-        Attendance Report
-      </h1>
+      {/* PAGE TITLE */}
+      <h1 className="font-bold mb-6 sm:text-3xl text-2xl">Attendance Report</h1>
 
-      {/* FILTER BAR */}
+      {/* FILTER SECTION */}
       <div
         className="
           flex 
@@ -25,28 +32,25 @@ export default function ReportsPage() {
       >
         <select
           className="
-            bg-slate-900 border border-slate-700 
-            p-2 rounded 
-            sm:w-auto w-full
+            bg-slate-900 
+            border border-slate-700 
+            p-2 
+            rounded 
+            sm:w-auto 
+            w-full
           "
           value={classId}
           onChange={(e) => setClassId(e.target.value)}
         >
           <option value="">Select Class</option>
           {classes.map((c) => (
-            <option key={c._id} value={c._id}>{c.name}</option>
+            <option key={c._id} value={c._id}>
+              {c.name}
+            </option>
           ))}
         </select>
 
-        <button
-          className="btn-glow sm:w-auto w-full"
-          onClick={async () => {
-            if (classId) {
-              const data = await getReport(classId);
-              setReport(data);
-            }
-          }}
-        >
+        <button className="btn-glow sm:w-auto w-full" onClick={loadReport}>
           Generate
         </button>
       </div>
@@ -54,14 +58,14 @@ export default function ReportsPage() {
       {/* TABLE */}
       {report.length > 0 && (
         <div className="glass-panel rounded-xl border border-slate-800 overflow-hidden">
-
-          {/* Enable horizontal scroll on mobile */}
+          
+          {/* enable scroll on small screens */}
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[650px]">
-              <thead className="bg-slate-800">
+            <table className="w-full min-w-[650px] text-sm">
+              <thead className="bg-slate-800 text-left">
                 <tr>
-                  <th className="p-3 text-left">Roll</th>
-                  <th className="p-3 text-left">Name</th>
+                  <th className="p-3">Roll</th>
+                  <th className="p-3">Name</th>
                   <th className="p-3 text-center">%</th>
                   <th className="p-3 text-center">P</th>
                   <th className="p-3 text-center">L</th>
@@ -72,10 +76,7 @@ export default function ReportsPage() {
 
               <tbody>
                 {report.map((r) => (
-                  <tr
-                    key={r.roll}
-                    className="border-t border-slate-800"
-                  >
+                  <tr key={r.roll} className="border-t border-slate-800">
                     <td className="p-3">{r.roll}</td>
                     <td className="p-3">{r.name}</td>
                     <td className="p-3 text-center text-indigo-400 font-semibold">
@@ -94,6 +95,7 @@ export default function ReportsPage() {
         </div>
       )}
 
+      {/* IF NO REPORT */}
       {report.length === 0 && (
         <p className="text-gray-400 mt-3">Generate a report to view results.</p>
       )}

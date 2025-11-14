@@ -17,11 +17,13 @@ export default function SignupPage() {
 
     try {
       const res = await register(name, email, password);
+
       if (res?.error) {
         setError(res.error || "Registration failed");
       } else {
         navigate("/login");
       }
+
     } catch (err) {
       setError("Email already registered or network error");
     } finally {
@@ -31,6 +33,7 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-4">
+
       <form
         onSubmit={handleSubmit}
         className="
@@ -40,13 +43,16 @@ export default function SignupPage() {
           border border-slate-800
           rounded-xl
           shadow-xl
-          sm:p-6
-          p-4
-        "
-        aria-label="Create teacher account"
-      >
-        <h1 className="text-2xl font-bold mb-6 text-center">Create Teacher Account</h1>
 
+          /* Responsive padding */
+          p-4 sm:p-6
+        "
+      >
+        <h1 className="text-2xl font-bold mb-6 text-center">
+          Create Teacher Account
+        </h1>
+
+        {/* NAME */}
         <label className="text-sm block mb-1">Full Name</label>
         <input
           className="w-full bg-slate-800 border border-slate-700 rounded px-3 py-2 mb-4 placeholder:text-slate-400"
@@ -56,6 +62,7 @@ export default function SignupPage() {
           required
         />
 
+        {/* EMAIL */}
         <label className="text-sm block mb-1">Email</label>
         <input
           type="email"
@@ -66,6 +73,7 @@ export default function SignupPage() {
           required
         />
 
+        {/* PASSWORD */}
         <label className="text-sm block mb-1">Password</label>
         <input
           type="password"
@@ -76,8 +84,14 @@ export default function SignupPage() {
           required
         />
 
-        {error && <p className="text-red-400 text-sm mb-3" role="alert">{error}</p>}
+        {/* ERROR */}
+        {error && (
+          <p className="text-red-400 text-sm mb-3" role="alert">
+            {error}
+          </p>
+        )}
 
+        {/* SUBMIT BUTTON */}
         <button
           type="submit"
           disabled={loading}
@@ -86,6 +100,7 @@ export default function SignupPage() {
           {loading ? "Creating…" : "Create Account"}
         </button>
 
+        {/* LOGIN LINK */}
         <p className="text-center text-sm text-gray-400 mt-3">
           Already have an account?{" "}
           <a href="/login" className="text-blue-400 hover:underline">
@@ -93,6 +108,7 @@ export default function SignupPage() {
           </a>
         </p>
       </form>
+
     </div>
   );
 }

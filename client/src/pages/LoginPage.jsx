@@ -15,44 +15,85 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      await login(email, password);
-      navigate("/classes");
+      // api.login returns the user object on success, undefined on failure
+      const user = await login(email.trim(), password);
+      if (!user) {
+        // If login failed, api.login doesn't throw — show a generic message.
+        setError("Invalid email or password");
+      } else {
+        // success -> navigate
+        navigate("/classes");
+      }
     } catch (err) {
-      setError("Invalid email or password");
+      // network or other unexpected errors
+      setError(err?.message || "Login failed. Try again.");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-box">
-        <h1 className="text-2xl font-bold mb-6 text-center">Teacher Login</h1>
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-6">
+      <form
+        onSubmit={handleSubmit}
+        className="
+          w-full
+          max-w-md
+          bg-slate-900
+          border border-slate-800
+          rounded-xl
+          shadow-2xl
+          p-6
+          flex
+          flex-col
+          gap-4
+        "
+        aria-label="Teacher login form"
+      >
+        <h1 className="text-2xl font-bold mb-2 text-center">Teacher Login</h1>
 
-        <label className="text-sm">Email</label>
-        <input
-          className="form-input"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="teacher@demo.com"
-        />
+        {/* Email */}
+        <div className="flex flex-col">
+          <label className="text-sm mb-1">Email</label>
+          <input
+            type="email"
+            className="w-full bg-slate-800 border border-slate-700 rounded px-3 py-2 placeholder:text-slate-400"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="teacher@demo.com"
+            required
+            autoComplete="username"
+          />
+        </div>
 
-        <label className="text-sm">Password</label>
-        <input
-          type="password"
-          className="form-input"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="••••••••"
-        />
+        {/* Password */}
+        <div className="flex flex-col">
+          <label className="text-sm mb-1">Password</label>
+          <input
+            type="password"
+            className="w-full bg-slate-800 border border-slate-700 rounded px-3 py-2 placeholder:text-slate-400"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="••••••••"
+            required
+            autoComplete="current-password"
+          />
+        </div>
 
-        {error && <p className="text-red-400 text-sm mb-3">{error}</p>}
+        {/* Error */}
+        {error && <p className="text-red-400 text-sm mt-1" role="alert">{error}</p>}
 
-        <button type="submit" disabled={loading} className="btn-glow w-full text-center disabled:opacity-60">
+        {/* Submit */}
+        <button
+          type="submit"
+          disabled={loading}
+          className="btn-glow w-full py-2 disabled:opacity-60 mt-2"
+        >
           {loading ? "Signing in…" : "Login"}
         </button>
 
-        <p className="text-center text-sm text-gray-400 mt-4">
+        {/* Signup link */}
+        <p className="text-center text-sm text-gray-400 mt-2">
           Don't have an account?{" "}
           <a href="/signup" className="text-blue-400 hover:underline">
             Create one
