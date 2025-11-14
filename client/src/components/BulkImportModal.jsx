@@ -9,12 +9,13 @@ export default function BulkImportModal({ classObj, onClose }) {
   async function handleImport() {
     setErr("");
     setStatus("");
+
     if (!classObj?._id) {
       setErr("Class is not selected.");
       return;
     }
 
-    // Parse "ROLL, Name" lines → [{ roll, name }]
+    // Convert lines into [{ roll, name }]
     const rows = text
       .trim()
       .split("\n")
@@ -26,17 +27,31 @@ export default function BulkImportModal({ classObj, onClose }) {
 
     try {
       const data = await importStudents(classObj._id, rows);
+
       const imported = Number(data.imported || 0);
       const skipped = Number(data.skipped || 0);
-      setStatus(`✅ Imported: ${imported} | ⚠️ Skipped (duplicates/blank): ${skipped}`);
+
+      setStatus(`✅ Imported: ${imported} | ⚠ Skipped: ${skipped}`);
     } catch (e) {
       setErr(e.message || "Import failed");
     }
   }
 
   return (
-    <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-6">
-      <div className="glass-panel p-6 rounded-xl w-full max-w-lg">
+    <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4">
+      <div
+        className="
+          glass-panel 
+          rounded-xl 
+          w-full 
+          max-w-lg 
+          border border-slate-800
+          
+          /* Mobile */
+          sm:p-6 
+          p-4
+        "
+      >
         <h2 className="text-xl font-bold mb-4">
           Import Students → {classObj?.name || "Unknown"}
         </h2>
@@ -53,17 +68,30 @@ export default function BulkImportModal({ classObj, onClose }) {
 
         <textarea
           rows={8}
-          className="w-full p-3 rounded bg-slate-900 border border-slate-700"
+          className="
+            w-full 
+            p-3 
+            rounded 
+            bg-slate-900 
+            border border-slate-700
+
+            /* Mobile */
+            text-sm
+          "
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
 
-        {status && <p className="text-green-400 my-3">{status}</p>}
-        {err && <p className="text-red-400 my-3">{err}</p>}
+        {status && <p className="text-green-400 my-3 text-sm">{status}</p>}
+        {err && <p className="text-red-400 my-3 text-sm">{err}</p>}
 
         <div className="flex justify-end gap-3 mt-4">
-          <button className="btn-danger" onClick={onClose}>Close</button>
-          <button className="btn-glow" onClick={handleImport}>Import</button>
+          <button className="btn-danger px-4 py-2" onClick={onClose}>
+            Close
+          </button>
+          <button className="btn-glow px-4 py-2" onClick={handleImport}>
+            Import
+          </button>
         </div>
       </div>
     </div>

@@ -25,16 +25,13 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-4">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-sm glass-panel p-6 rounded-xl shadow-2xl border border-slate-800"
-      >
+    <div className="login-container">
+      <form onSubmit={handleSubmit} className="login-box">
         <h1 className="text-2xl font-bold mb-6 text-center">Teacher Login</h1>
 
         <label className="text-sm">Email</label>
         <input
-          className="w-full bg-slate-900 border border-slate-800 rounded px-3 py-2 mb-4"
+          className="form-input"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="teacher@demo.com"
@@ -43,7 +40,7 @@ export default function LoginPage() {
         <label className="text-sm">Password</label>
         <input
           type="password"
-          className="w-full bg-slate-900 border border-slate-800 rounded px-3 py-2 mb-4"
+          className="form-input"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
@@ -51,15 +48,10 @@ export default function LoginPage() {
 
         {error && <p className="text-red-400 text-sm mb-3">{error}</p>}
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="btn-glow w-full text-center disabled:opacity-60"
-        >
+        <button type="submit" disabled={loading} className="btn-glow w-full text-center disabled:opacity-60">
           {loading ? "Signing in…" : "Login"}
         </button>
 
-        {/* NEW - Signup Link */}
         <p className="text-center text-sm text-gray-400 mt-4">
           Don't have an account?{" "}
           <a href="/signup" className="text-blue-400 hover:underline">

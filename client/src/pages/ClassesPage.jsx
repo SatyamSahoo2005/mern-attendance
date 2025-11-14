@@ -8,36 +8,62 @@ export default function ClassesPage() {
   const [importClass, setImportClass] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => { getClasses().then(setClasses); }, []);
+  useEffect(() => {
+    getClasses().then(setClasses);
+  }, []);
 
   function openImportModal(cls) {
-    setImportClass(cls); // Store full class object, not ID
+    setImportClass(cls);
   }
 
   return (
-    <div>
+    <div
+      className="
+        sm:p-6 
+        p-4      /* Mobile padding */
+      "
+    >
       <h1 className="text-3xl font-bold mb-6">Classes</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Grid responsive layout */}
+      <div className="
+        grid 
+        grid-cols-1 
+        sm:grid-cols-2 
+        lg:grid-cols-3 
+        gap-6
+      ">
         {classes.map((cls) => (
           <div
             key={cls._id}
-            className="p-6 rounded-lg glass-panel shadow-sm hover:shadow transition"
+            className="
+              glass-panel 
+              rounded-lg 
+              shadow-sm 
+              hover:shadow 
+              transition
+
+              /* Mobile padding fix */
+              sm:p-6 
+              p-4
+            "
           >
             <p className="text-xl font-semibold text-blue-400">{cls.name}</p>
             <p className="text-gray-400 text-sm mt-1">Year: {cls.year ?? "-"}</p>
 
-            <div className="flex justify-between mt-5">
+            <div className="flex justify-between mt-5 gap-3">
               <button
-                className="btn-glow"
-                onClick={() => navigate(`/attendance?classId=${cls._id}`)}
+                className="btn-glow flex-1 text-center"
+                onClick={() =>
+                  navigate(`/attendance?classId=${cls._id}`)
+                }
               >
                 Open Attendance
               </button>
 
               <button
-                className="btn-danger"
-                onClick={() => openImportModal(cls)}  
+                className="btn-danger flex-1 text-center"
+                onClick={() => openImportModal(cls)}
               >
                 Import Students
               </button>

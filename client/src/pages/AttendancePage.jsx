@@ -53,13 +53,14 @@ export default function AttendancePage() {
   const stats = summary();
 
   return (
-    <div className="p-6">
+    <div className="sm:p-6 p-3">
       <h1 className="text-3xl font-bold mb-6">Attendance</h1>
 
       {/* Filters */}
       <div className="flex flex-wrap gap-3 mb-6">
+
         <select
-          className="px-3 py-2 rounded bg-slate-900 border border-slate-800"
+          className="px-3 py-2 rounded bg-slate-900 border border-slate-800 w-full sm:w-auto"
           value={classId}
           onChange={(e) => setClassId(e.target.value)}
         >
@@ -71,19 +72,24 @@ export default function AttendancePage() {
 
         <input
           type="date"
-          className="px-3 py-2 rounded bg-slate-900 border border-slate-800"
+          className="px-3 py-2 rounded bg-slate-900 border border-slate-800 w-full sm:w-auto"
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
 
-        <button className="btn-glow" onClick={loadSession}>
+        <button className="btn-glow w-full sm:w-auto" onClick={loadSession}>
           Load Attendance
         </button>
       </div>
 
-      {/* ✅ Attendance Summary Panel */}
+      {/* Summary */}
       {stats && (
-        <div className="glass-panel rounded-lg p-4 mb-6 border border-slate-800 flex gap-6 text-center">
+        <div
+          className="
+            glass-panel rounded-lg p-4 mb-6 border border-slate-800 
+            grid grid-cols-3 sm:flex sm:gap-6 text-center
+          "
+        >
           <div>
             <p className="text-lg font-semibold">{stats.total}</p>
             <p className="text-sm text-gray-400">Total</p>
@@ -96,7 +102,7 @@ export default function AttendancePage() {
             <p className="text-lg font-semibold text-yellow-300">{stats.late}</p>
             <p className="text-sm text-gray-400">Late</p>
           </div>
-          <div>
+          <div className="hidden sm:block">
             <p className="text-lg font-semibold text-red-400">{stats.absent}</p>
             <p className="text-sm text-gray-400">Absent</p>
           </div>
@@ -104,13 +110,20 @@ export default function AttendancePage() {
             <p className="text-lg font-semibold text-blue-400">{stats.percent}%</p>
             <p className="text-sm text-gray-400">Attendance %</p>
           </div>
+
+          {/* Mobile-only absent */}
+          <div className="sm:hidden mt-3">
+            <p className="text-lg font-semibold text-red-400">{stats.absent}</p>
+            <p className="text-sm text-gray-400">Absent</p>
+          </div>
         </div>
       )}
 
       {/* Table */}
       {session && session.marks && (
-        <div className="glass-panel rounded-xl overflow-hidden border border-slate-800 shadow">
-          <table className="w-full">
+        <div className="glass-panel rounded-xl overflow-x-auto border border-slate-800 shadow">
+
+          <table className="min-w-full text-sm">
             <thead className="bg-slate-900/60">
               <tr>
                 <th className="p-3 text-left">Roll</th>
@@ -119,6 +132,7 @@ export default function AttendancePage() {
                 <th className="p-3 text-center">Actions</th>
               </tr>
             </thead>
+
             <tbody>
               {session.marks.map((m) => (
                 <EditableRow
@@ -130,6 +144,7 @@ export default function AttendancePage() {
                 />
               ))}
             </tbody>
+
           </table>
         </div>
       )}
@@ -145,10 +160,11 @@ function EditableRow({ mark, onToggle, onSave, onDelete }) {
 
   return (
     <tr className="border-t border-slate-800">
+
       <td className="p-3">
         {editing ? (
           <input
-            className="w-30 bg-slate-900 border border-slate-700 rounded px-2 py-1"
+            className="w-24 bg-slate-900 border border-slate-700 rounded px-2 py-1"
             value={roll}
             onChange={(e) => setRoll(e.target.value)}
           />
@@ -158,7 +174,7 @@ function EditableRow({ mark, onToggle, onSave, onDelete }) {
       <td className="p-3">
         {editing ? (
           <input
-            className="w-48 bg-slate-900 border border-slate-700 rounded px-2 py-1"
+            className="w-40 bg-slate-900 border border-slate-700 rounded px-2 py-1"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -183,7 +199,9 @@ function EditableRow({ mark, onToggle, onSave, onDelete }) {
 
       <td className="p-3 text-center space-x-2">
         {!editing ? (
-          <button className="btn-glow px-3 py-1" onClick={() => setEditing(true)}>Edit</button>
+          <button className="btn-glow px-3 py-1" onClick={() => setEditing(true)}>
+            Edit
+          </button>
         ) : (
           <button
             className="btn-glow px-3 py-1"
@@ -192,8 +210,12 @@ function EditableRow({ mark, onToggle, onSave, onDelete }) {
             Save
           </button>
         )}
-        <button className="btn-danger px-3 py-1" onClick={() => onDelete(s._id)}>Delete</button>
+
+        <button className="btn-danger px-3 py-1" onClick={() => onDelete(s._id)}>
+          Delete
+        </button>
       </td>
+
     </tr>
   );
 }

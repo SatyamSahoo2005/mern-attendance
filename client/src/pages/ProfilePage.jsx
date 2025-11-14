@@ -17,15 +17,28 @@ export default function ProfilePage() {
   async function saveChanges() {
     await updateProfile({ name, password: password || undefined });
     setMsg("Profile updated successfully!");
+
     if (name)
       localStorage.setItem("user", JSON.stringify({ ...profile, name }));
   }
 
-  if (!profile) return <div>Loading...</div>;
+  if (!profile) return <div className="p-6">Loading...</div>;
 
   return (
-    <div className="max-w-md mx-auto glass-panel p-6 rounded-xl shadow-lg">
-      <h1 className="text-2xl font-bold mb-6">Profile</h1>
+    <div
+      className="
+        max-w-md mx-auto 
+        glass-panel 
+        rounded-xl shadow-lg 
+
+        /* Mobile responsive changes */
+        p-4 sm:p-6
+        w-full
+      "
+    >
+      <h1 className="text-2xl font-bold mb-6 text-center sm:text-left">
+        Profile
+      </h1>
 
       {msg && <p className="text-green-400 mb-3 text-sm">{msg}</p>}
 
@@ -44,7 +57,7 @@ export default function ProfilePage() {
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <button onClick={saveChanges} className="btn-glow w-full">
+      <button className="btn-glow w-full" onClick={saveChanges}>
         Save Changes
       </button>
     </div>
