@@ -105,6 +105,49 @@ tbody tr:hover {
     transform: translateY(-1px);
 }
 
+/* DESKTOP / LARGE SCREEN FIXES */
+@media (min-width: 769px) {
+
+  /* Hide mobile header on desktop */
+  .mobile-header {
+    display: none !important;
+  }
+
+  /* Sidebar becomes fixed left column again */
+  .sidebar {
+    position: relative !important;
+    width: 260px !important;
+    height: 100vh !important;
+    transform: none !important;
+    border-right: 1px solid #1e293b;
+    padding: 1.5rem !important;
+  }
+
+  /* Show desktop title in sidebar */
+  .hidden-mobile {
+    display: block !important;
+  }
+
+  /* Desktop Layout */
+  .app-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+  }
+
+  /* Main content normal padding */
+  .main-content {
+    margin-top: 0 !important;
+    padding: 2rem !important;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .nav-link {
+    padding: 0.6rem 1rem;
+  }
+}
+
 /* MOBILE RESPONSIVE STYLES       */
 
 @media (max-width: 768px) {
