@@ -1,11 +1,10 @@
 const API_BASE = "https://mern-attendance-server.onrender.com/api";
 
-// Save token consistently
+// ---------------------- TOKEN HELPERS ----------------------
 export function setAuthToken(token) {
   localStorage.setItem("authToken", token);
 }
 
-// Attach Authorization header automatically
 function authHeaders() {
   const token = localStorage.getItem("authToken");
   return token
@@ -13,7 +12,7 @@ function authHeaders() {
     : { "Content-Type": "application/json" };
 }
 
-// ---------- AUTH ----------
+// ---------------------- AUTH ----------------------
 export async function login(email, password) {
   const res = await fetch(`${API_BASE}/auth/login`, {
     method: "POST",
@@ -25,10 +24,10 @@ export async function login(email, password) {
 
   if (data.token) {
     setAuthToken(data.token);
-    localStorage.setItem("user", JSON.stringify(data.user)); // optional
+    localStorage.setItem("user", JSON.stringify(data.user));
   }
 
-  return data.user;
+  return data;
 }
 
 export async function register(name, email, password) {
@@ -45,13 +44,13 @@ export async function getTeachers() {
   return res.json();
 }
 
-// ---------- CLASSES ----------
+// ---------------------- CLASSES ----------------------
 export async function getClasses() {
   const res = await fetch(`${API_BASE}/classes`, { headers: authHeaders() });
   return res.json();
 }
 
-// ---------- STUDENTS ----------
+// ---------------------- STUDENTS ----------------------
 export async function getStudents(classId) {
   const res = await fetch(`${API_BASE}/students?classId=${classId}`, {
     headers: authHeaders(),
@@ -85,7 +84,7 @@ export async function deleteStudent(id) {
   return res.json();
 }
 
-// ---------- ATTENDANCE ----------
+// ---------------------- ATTENDANCE ----------------------
 export async function createSession(classId, date) {
   const res = await fetch(`${API_BASE}/sessions`, {
     method: "POST",
@@ -103,7 +102,9 @@ export async function getSession(classId, date) {
 }
 
 export async function getSessionDetails(sessionId) {
-  const res = await fetch(`${API_BASE}/sessions/${sessionId}`, { headers: authHeaders() });
+  const res = await fetch(`${API_BASE}/sessions/${sessionId}`, {
+    headers: authHeaders(),
+  });
   return res.json();
 }
 
@@ -116,7 +117,7 @@ export async function toggleAttendance(sessionId, studentId) {
   return res.json();
 }
 
-// ---------- REPORT ----------
+// ---------------------- REPORT ----------------------
 export async function getReport(classId) {
   const res = await fetch(`${API_BASE}/sessions/report/${classId}`, {
     headers: authHeaders(),
@@ -124,8 +125,11 @@ export async function getReport(classId) {
   return res.json();
 }
 
+// ---------------------- PROFILE ----------------------
 export async function getProfile() {
-  const res = await fetch(`${API_BASE}/profile/me`, { headers: authHeaders() });
+  const res = await fetch(`${API_BASE}/profile/me`, {
+    headers: authHeaders(),
+  });
   return res.json();
 }
 
@@ -138,15 +142,7 @@ export async function updateProfile(payload) {
   return res.json();
 }
 
-export async function bulkImportStudents(classId, students) {
-  const res = await fetch(`${API_BASE}/students/import`, {
-    method: "POST",
-    headers: authHeaders(),
-    body: JSON.stringify({ classId, students }),
-  });
-  return res.json();
-}
-
+// ---------------------- BULK IMPORT ----------------------
 export async function importStudents(classId, students) {
   const res = await fetch(`${API_BASE}/students/import`, {
     method: "POST",
@@ -158,6 +154,5 @@ export async function importStudents(classId, students) {
     const err = await res.json().catch(() => ({}));
     throw new Error(err.error || `Import failed: ${res.status}`);
   }
-
   return res.json();
 }
