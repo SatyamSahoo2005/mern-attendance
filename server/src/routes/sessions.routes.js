@@ -37,7 +37,7 @@ router.get("/:id", async (req, res) => {
   try {
     const session = await Session.findById(req.params.id)
       .populate("classId", "name year")
-      .populate("marks.studentId", "name roll"); // ✅ This is the key
+      .populate("marks.studentId", "name roll"); // This is the key
 
     if (!session) return res.status(404).json({ error: "Session not found" });
 
