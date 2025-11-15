@@ -45,7 +45,7 @@ export default function AttendancePage() {
     const present = session.marks.filter(m => m.status === "PRESENT").length;
     const late = session.marks.filter(m => m.status === "LATE").length;
     const absent = session.marks.filter(m => m.status === "ABSENT").length;
-    const percent = Math.round((present / total) * 100);
+    const percent = Math.round(((present + 0.5 * late) / total) * 100);
     return { total, present, late, absent, percent };
   }
 
